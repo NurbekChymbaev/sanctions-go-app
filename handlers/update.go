@@ -21,8 +21,6 @@ type SdnEntry struct {
 	Firstname string    `xml:"firstName"`
 	Lastname  string    `xml:"lastName"`
 	Type      string    `xml:"sdnType"`
-	Title     string    `xml:"title"`
-	Remarks   string    `xml:"remarks"`
 	AkaList   []AkaList `xml:"akaList"`
 }
 
@@ -32,7 +30,6 @@ type AkaList struct {
 
 type Aka struct {
 	ID        string `xml:"uid"`
-	Category  string `xml:"category"`
 	Firstname string `xml:"firstName"`
 	Lastname  string `xml:"lastName"`
 }
@@ -59,14 +56,11 @@ func Update(c *fiber.Ctx) error {
 			entry.ID = util.ConvertToUint(sdnEntry.ID)
 			entry.Firstname = sdnEntry.Firstname
 			entry.Lastname = sdnEntry.Lastname
-			entry.Remarks = sdnEntry.Remarks
-			entry.Title = sdnEntry.Title
 			entries = append(entries, *entry)
 			for _, akaList := range sdnEntry.AkaList {
 				for _, aka := range akaList.Aka {
 					name := new(models.Names)
 					name.ID = util.ConvertToUint(aka.ID)
-					name.Category = aka.Category
 					name.Firstname = aka.Firstname
 					name.Lastname = aka.Lastname
 					name.EntryID = entry.ID
