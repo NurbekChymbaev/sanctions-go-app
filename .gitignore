@@ -16,6 +16,4 @@
 
 /tmp/*
 
-.env
 .idea
-/uploads/*
